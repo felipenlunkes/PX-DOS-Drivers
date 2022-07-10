@@ -1,0 +1,368 @@
+
+- NASM Map file ---------------------------------------------------------------
+
+Source file:  hal.asm
+Output file:  Driver\hal.sis
+
+-- Program origin -------------------------------------------------------------
+
+00000000
+
+-- Sections (summary) ---------------------------------------------------------
+
+Vstart            Start             Stop              Length    Class     Name
+               0                 0               A5D  00000A5D  progbits  .text
+             A60               A60              1549  00000AE9  progbits  .data
+             200              1550              1556  00000006  progbits  .rdata
+             600              1560              156D  0000000D  progbits  .comment
+             900              1570              160B  0000009B  progbits  .info
+             9A0               9A0               9A0  00000000  nobits    .bss
+
+-- Sections (detailed) --------------------------------------------------------
+
+---- Section .text ------------------------------------------------------------
+
+class:     progbits
+length:                 A5D
+start:                    0
+align:                   10
+follows:   not defined
+vstart:                   0
+valign:    not defined
+vfollows:  not defined
+
+---- Section .data ------------------------------------------------------------
+
+class:     progbits
+length:                 AE9
+start:                  A60
+align:                   10
+follows:   not defined
+vstart:                 A60
+valign:    not defined
+vfollows:  not defined
+
+---- Section .rdata -----------------------------------------------------------
+
+class:     progbits
+length:                   6
+start:                 1550
+align:                    8
+follows:   not defined
+vstart:                 200
+valign:    not defined
+vfollows:  not defined
+
+---- Section .comment ---------------------------------------------------------
+
+class:     progbits
+length:                   D
+start:                 1560
+align:                   10
+follows:   not defined
+vstart:                 600
+valign:    not defined
+vfollows:  not defined
+
+---- Section .info ------------------------------------------------------------
+
+class:     progbits
+length:                  9B
+start:                 1570
+align:                    8
+follows:   not defined
+vstart:                 900
+valign:    not defined
+vfollows:  not defined
+
+---- Section .bss -------------------------------------------------------------
+
+class:     nobits
+length:                   0
+start:                  9A0
+align:                   10
+follows:   not defined
+vstart:                 9A0
+valign:                  10
+vfollows:  not defined
+
+-- Symbols --------------------------------------------------------------------
+
+---- No Section ---------------------------------------------------------------
+
+Value     Name
+00000000  NUM_VER
+00000009  NUM_SUBVER
+00000000  VERSAO
+00000009  SUBVERSAO
+000007E0  REVISAO
+00000090  PINT
+00000021  DINT
+00007530  tabela_inicial
+00008000  tabela_final
+00000008  SELETOR_LINEAR
+00000010  SELETOR_CODIGO_SIS
+00000018  SELETOR_DADOS_SIS
+00000020  SELETOR_CODIGO_REAL
+00000028  SELETOR_DADOS_REAL
+00000069  interrupcaoHAL
+00008000  SEGMENTO
+00000000  Hardware
+00000000  procx86
+00000034  memx86
+00000068  serialx86
+00000082  Arenax86
+0000009C  Hardware_size
+00000200  proc
+00000800  mem
+FFFFFFFFFFFFF5C3  dadosPrincipal
+
+
+---- Section .text ------------------------------------------------------------
+
+Real              Virtual           Name
+               0                 0  Driver
+               0                 0  Driver.assinatura
+               2                 2  Driver.tipo
+               4                 4  Driver.numero
+               6                 6  Driver.nome_driver
+              11                11  Driver.estrategia
+              13                13  Driver.interrupcao
+              15                15  Driver.versao
+              17                17  Driver.subversao
+              2B                2B  INICIO
+              3F                3F  escrever
+              4B                4B  pronto
+              4C                4C  clrscr
+              6B                6B  gotoxy
+              78                78  pintartela
+              AC                AC  chamar_azul_branco
+              B0                B0  chamar_branco_laranja
+              B4                B4  chamar_cinza_verde
+              B8                B8  chamar_ciano_roxo
+              BC                BC  chamar_vermelho_azul
+              C0                C0  chamar_vermelho_ciano
+              C4                C4  chamar_vermelhoesc_branco
+              C8                C8  branco_laranja
+              FA                FA  azul_branco
+             12C               12C  cinza_verde
+             15E               15E  ciano_roxo
+             190               190  vermelho_azul
+             1C2               1C2  vermelho_ciano
+             1F4               1F4  vermelhoesc_branco
+             226               226  HD
+             233               233  Alta_definicao
+             23E               23E  Falha_Video
+             245               245  HAL_Iniciar_APM
+             245               245  checar_instalacao
+             24F               24F  desconectar_interfaces
+             259               259  conectar_interface
+             263               263  ativar_gerenciamento
+             271               271  HAL_APM_FIM
+             272               272  APM_ERRO_INSTALACAO
+             275               275  APM_ERRO_CONEXAO
+             278               278  APM_ERRO_GERENCIAMENTO
+             279               279  APM_ERRO_DESCONEXAO
+             27F               27F  BIOS
+             285               285  pxdoshlt
+             293               293  printf
+             297               297  printk
+             29F               29F  binparadecimal
+             2B8               2B8  binparadecimal.tmp
+             2BA               2BA  pausar
+             2DB               2DB  pausar.checarloop
+             2E8               2E8  pausar.passou
+             2EA               2EA  pausar.sincronizado
+             2FE               2FE  pausar.delayoriginal
+             300               300  pausar.var_contar
+             302               302  pausar.anterior
+             304               304  paraString
+             30E               30E  paraString.empurrar
+             319               319  paraString.puxar
+             32B               32B  paraString.tmp
+             332               332  verificar_sistema
+             340               340  Continua
+             34B               34B  correto
+             34C               34C  FIMVDI
+             359               359  SDK_fim
+             367               367  kbs
+             371               371  mbs
+             37E               37E  VERIFICAR_MEMORIA
+             3B6               3B6  VERIFICAR_MEMORIA.erro
+             3BC               3BC  Ativar_A20
+             3F2               3F2  Ativar_A20.nao
+             3F9               3F9  aguardarA20
+             400               400  aguardarA20_2
+             407               407  VERIFICAR_X86
+             43A               43A  @CPUID_SUPORTADO
+             4AD               4AD  @sem_3DNOW
+             4C4               4C4  BANDEIRA
+             518               518  loop_CPU
+             51F               51F  imprimir_CPU
+             54F               54F  BANDEIRA_Serial
+             5A3               5A3  loop_CPUSerial
+             5AA               5AA  imprimir_CPUSerial
+             5B0               5B0  __DRIVER_FIM__
+             5BC               5BC  __Driver_Info__
+             5D6               5D6  __OBTER_VERSAO__
+             604               604  INICIO_VM
+             613               613  INICIO_VM_CONTINUAR
+             673               673  Ir_Para_Protegido
+             696               696  escreverChar
+             6DB               6DB  escreverChar2
+             6E8               6E8  escrever_string
+             6F0               6F0  escrever_string1
+             6F5               6F5  escrever_string2
+             6FD               6FD  int_desconhecida
+             70E               70E  interrupcao_20h
+             71C               71C  Ir_Para_Real
+             733               733  Ir_Para_Real16
+             747               747  CsrX
+             748               748  CsrY
+             749               749  ola_msg
+             74A               74A  int_desconhecida_msg
+             765               765  interrupcao_20h_msg
+             766               766  gdtr
+             76C               76C  idtr
+             772               772  ridtr
+             778               778  gdt
+             788               788  gdt1
+             790               790  gdt2
+             798               798  gdt3
+             7A0               7A0  gdt4
+             7A8               7A8  gdt_fim
+             7A8               7A8  idt
+             8B0               8B0  idt_fim
+             8B0               8B0  INTERRUPCAO
+             8B7               8B7  VERIFICAR_VERSAO_PXDOS
+             8C7               8C7  VERCORRETA
+             8CA               8CA  SUBVER
+             8DB               8DB  SUBVERCORRETA
+             8DC               8DC  VERSAO_INCORRETA
+             903               903  SubNula
+             90C               90C  VerNula
+             915               915  VERIFICAR_IMPRESSORA
+             94E               94E  falha_impressora
+             955               955  iniciar_serial
+             95F               95F  transferir
+             96F               96F  transferir.pronto
+             970               970  transferir.erro
+             977               977  receber
+             98C               98C  receber.pronto
+             98D               98D  receber.erro
+             994               994  memoria
+             9CE               9CE  chamar_HAL
+             9D5               9D5  __INICIAR
+             9F3               9F3  delay
+             A14               A14  delay.checarLoop
+             A21               A21  delay.tempo_para
+             A23               A23  delay.na_hora
+             A37               A37  delay.delay_original
+             A39               A39  delay.var_contar
+             A3B               A3B  delay.contagem_anterior
+             A3D               A3D  __DRIVER_INIT__
+             A40               A40  FIM
+             A43               A43  INTE
+             A57               A57  int_prog
+
+---- Section .data ------------------------------------------------------------
+
+Real              Virtual           Name
+             A60               A60  ..@6.string
+             A8E               A8E  OFICIAL_MSG
+             AB3               AB3  SISOP
+             AD2               AD2  SISOPAUT
+             B02               B02  copyrightNT
+             B51               B51  Descricao
+             BC9               BC9  emitirsom
+             BE0               BE0  desligarsom
+             BE9               BE9  splash
+             BF0               BF0  splash_msg
+             C73               C73  ..@9.string
+             C9A               C9A  ..@12.string
+             CC7               CC7  ..@15.string
+             CD1               CD1  ..@18.string
+             CF0               CF0  memoria_global
+             CF5               CF5  ..@22.string
+             D0D               D0D  ..@25.string
+             D11               D11  ..@28.string
+             D50               D50  ..@31.string
+             D95               D95  ..@34.string
+             DD3               DD3  processador_global
+             DE0               DE0  prodmsg
+             DF8               DF8  produto
+             E2C               E2C  produtoSerial
+             E60               E60  pxdosbug
+             E66               E66  limpar_memoria
+             E6D               E6D  limpar_memoria.loop
+             E80               E80  limpar_memoria.pronto
+             E81               E81  marcar_memoria
+             E88               E88  marcar_memoria.loop
+             E9B               E9B  marcar_memoria.pronto
+             E9C               E9C  uso_aplicativo
+             EB1               EB1  ativar_A20
+             EE3               EE3  ativar_A20.aguardarA20
+             EEA               EEA  ativar_A20.aguardarA202
+             EF1               EF1  parahexa
+             F07               F07  guardar
+             F1E               F1E  hex
+             F27               F27  hexc
+             F37               F37  testt
+             F3E               F3E  ..@37.string
+             F52               F52  ponto
+             F54               F54  Criar_Interrupcao
+             F6D               F6D  entrada_interrupcao
+             F82               F82  entrada_interrupcao.reinicio
+             F85               F85  entrada_interrupcao.info
+             F86               F86  ..@40.string
+             FAD               FAD  ..@43.string
+             FEC               FEC  ..@46.string
+            102E              102E  ..@49.string
+            1078              1078  ..@52.string
+            10C5              10C5  ..@55.string
+            1113              1113  ..@58.string
+            1143              1143  ..@61.string
+            1170              1170  ..@64.string
+            119A              119A  ..@67.string
+            11A8              11A8  ..@70.string
+            11B4              11B4  ..@73.string
+            11F6              11F6  ..@76.string
+            1238              1238  recebido
+            1278              1278  HAL_Serial
+            12C7              12C7  obterProcessador
+            12E0              12E0  obterProcessador.msgProcessador
+            130E              130E  memoria.msgMemoria
+            132C              132C  memoria.tamanhoMemoria
+            132E              132E  memoria.tamanhoTotal
+            1330              1330  memoria.msgKbytes
+            133A              133A  memoria.tamanhoKbytes
+            133C              133C  memoria.memoria
+            133D              133D  msgInicio
+            13BE              13BE  msgServicos
+            13FF              13FF  msgPorta
+            1434              1434  msgSobre
+            146D              146D  msgDebug
+            14A5              14A5  msgEspaco
+            152C              152C  dispositivo
+            1536              1536  tipo
+            1538              1538  asterisco
+            153A              153A  interrogacao
+            153C              153C  FAT
+
+---- Section .rdata -----------------------------------------------------------
+
+Real              Virtual           Name
+            1550               200  SIS_REQ
+
+---- Section .comment ---------------------------------------------------------
+
+Real              Virtual           Name
+            1560               600  BUILD
+
+---- Section .info ------------------------------------------------------------
+
+Real              Virtual           Name
+            1570               900  SEP
+            15A0               930  assinaturafinal
+            15EB               97B  APM
+

@@ -1,0 +1,94 @@
+;;********************************************************************************************
+;;
+;;
+;;           @@@@    @@@@       @@@@@@@       @@@@           
+;;           @@@@    @@@@     @@@@   @@@@     @@@@
+;;           @@@@    @@@@     @@@@   @@@@     @@@@
+;;           @@@@    @@@@     @@@@   @@@@     @@@@ 
+;;           @@@@@@@@@@@@     @@@@@@@@@@@     @@@@ 
+;;           @@@@@@@@@@@@     @@@@   @@@@     @@@@
+;;           @@@@    @@@@     @@@@   @@@@     @@@@
+;;           @@@@    @@@@     @@@@   @@@@     @@@@ 
+;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
+;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
+;;
+;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;
+;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicialização.
+;;
+;;
+;;
+;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;;
+;;
+;;
+;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Todos os direitos reservados.
+;;
+;; A distribuição, reprodução total ou parcial de qualquer trecho do código
+;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
+;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
+;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;
+;;********************************************************************************************
+
+* Chaves de controle para geração da HAL:
+
+A HAL possui chaves de controle para a linha de comando que especificam qual o modelo
+da HAL deve ser gerada dependendo do Hardware alvo.
+
+É possível desabilitar o descobrimento, configuração e acesso à impressoras, porta serial,
+porta paralela, memória extendida, além de recursos que variam de geração em geração de
+processadores, como Modo Unreal, Modo V86, Modo Protegido, etc.
+
+A seguir, a lista completa de chaves para ligar determinadas funções. Caso não definidas,
+as chaves permanecerão desabilitadas e a função não será incluída no arquivo binário
+final à ser gerado.
+
+
+Chave             |          Função/Manipulador/Driver                 |       Tipo
+------------------|----------------------------------------------------|----------------------
+COMPLETA          |             Habilita todas as chaves               |  Chave Mestre
+BASICA            | Habilita apenas funções básicas (compatibilidade)  |  Chave Mestre
+MINIMA            |   Habilita apenas funções vitais para o sistema    |  Chave Mestre
+------------------|----------------------------------------------------|----------------------
+COM1              |    Habilita o suporte a portas seriais (Driver)    |  Chave
+IMPRESSORA        |  Habilita o suporte a impressoras seriais (Driver) |  Chave
+BIBLIOTECAS       |  Habilita a exibição de mensagens por bib. PX-DOS  |  Chave
+V86               |     Habilita o Modo Virtual 8086 (Manipulador)     |  Chave
+PROCINFO          | Habilita a detecção avançada do Processador (Man.) |  Chave
+------------------|----------------------------------------------------|----------------------
+PENTIUM           |  Chave para escolha de código compatível gerado    |  Chave de Hardware
+------------------|----------------------------------------------------|----------------------
+DEBUG             |  Habilita informações durante a compilação da HAL  |  Chave de Debug
+------------------|----------------------------------------------------|----------------------
+FELIPE            |   Chave de licença para geração de software final  |  Chave de licença
+ORIGINAL          |  Chave de licença para autenticação de software    |  Chave de licença
+OFICIAL           |  Chave de licença para autenticação de software    |  Chave de licença
+------------------|----------------------------------------------------|----------------------
+
+* Informações na "assinatura final" da HAL e outros Drivers
+
+A HAL, apresenta, em seu final, uma "assinatura" utilizada para obter informações acerca de
+seu processo de geração. Ela pode dizer muito sobre a HAL. Nessa "assinatura final", constam
+informações relevantes para a identificação da mesma. As informações, em ordem sequencial,
+serão expostas abaixo:
+
+Exemplo:
+
+"HAL PXDOS 090 10 10 2016 20 57 00 F  -  C/M/B"
+ ^1  ^2    ^3  ^4 ^5 ^6   ^7 ^8 ^9 ^10   ^11
+ 
+ 1) Nome do Módulo para o sistema
+ 2) Nome do Sistema a que se destina (sempre o mesmo)
+ 3) Versão do PX-DOS que se destina e é compatível
+ 4) Dia da última modificação de código
+ 5) Mês da última modificação do código
+ 6) Ano da última modificação do código
+ 7) Hora da última modificação do código (24 horas)
+ 8) Minuto da última modificação do código
+ 9) Segundo da última modificação do código (convém 00 - Zero)
+ 10) Tipo de Lançamento (F=Final; T=Testes; R=Release Candidate)
+ 11) Tipo da HAL gerada (C=Completa; M=Mínima; B=Básica)
