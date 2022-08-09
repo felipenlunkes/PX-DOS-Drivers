@@ -12,32 +12,77 @@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;
-;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;        HAL - Camada de Abstraï¿½ï¿½o de Hardware do PX-DOS  
 ;;
-;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
-;; removiveis em um unico driver carregavel, durante o processo de inicialização.
-;;
-;;
-;;
-;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
-;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;; Este mï¿½dulo inclui todos os serviï¿½os essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicializaï¿½ï¿½o.
 ;;
 ;;
 ;;
-;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Este driver ajudarï¿½ o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removï¿½veis e arquiteturas x86 genï¿½ricas suportadas.
+;;
+;;
+;;
+;; Copyright ï¿½ 2013-2016 Felipe Miguel Nery Lunkes
 ;; Todos os direitos reservados.
 ;;
-;; A distribuição, reprodução total ou parcial de qualquer trecho do código
-;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
-;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
-;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
+;;
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;********************************************************************************************
 ;;
-;;                       Rotinas de comunicação com funções APM
+;;                       Rotinas de comunicaï¿½ï¿½o com funï¿½ï¿½es APM
 ;;
-;;  Este arquivo contém rotinas de comunicação e protocolos APM responsáveis pelo
-;; controle energético do computador
+;;  Este arquivo contï¿½m rotinas de comunicaï¿½ï¿½o e protocolos APM responsï¿½veis pelo
+;; controle energï¿½tico do computador
 ;;                                 
 ;;
 ;;
@@ -45,39 +90,39 @@
 
 HAL_Iniciar_APM:
 
-checar_instalacao: ;; Será realizada uma chamada para a checagem de instalação
+checar_instalacao: ;; Serï¿½ realizada uma chamada para a checagem de instalaï¿½ï¿½o
 
-mov ah, 53h            ;; Uma função APM
-mov al, 00h            ;; Comando de checagem de instalação
+mov ah, 53h            ;; Uma funï¿½ï¿½o APM
+mov al, 00h            ;; Comando de checagem de instalaï¿½ï¿½o
 xor bx, bx             ;; ID do dispositivo (APM BIOS)
-int 15h                ;; Chama a função APM
-jc APM_ERRO_INSTALACAO ;; Caso ocorra erro, chama manipulador específico
+int 15h                ;; Chama a funï¿½ï¿½o APM
+jc APM_ERRO_INSTALACAO ;; Caso ocorra erro, chama manipulador especï¿½fico
 
 desconectar_interfaces: ;; Desconecta interfaces anteriores
 
-mov ah, 53h               ;; Uma função APM
-mov al, 04h               ;; Comando de desconexão de interface
+mov ah, 53h               ;; Uma funï¿½ï¿½o APM
+mov al, 04h               ;; Comando de desconexï¿½o de interface
 xor bx, bx                ;; ID do dispositivo (APM BIOS)
-int 15h                   ;; Chama a função APM
-jc APM_ERRO_DESCONEXAO    ;; Caso ocorra erro, chama manipulador específico
+int 15h                   ;; Chama a funï¿½ï¿½o APM
+jc APM_ERRO_DESCONEXAO    ;; Caso ocorra erro, chama manipulador especï¿½fico
  
 conectar_interface: ;; Conecta a uma interface APM para o gerenciamento
 
-mov ah, 53h               ;; Uma função APM
-mov al, 01h               ;; Número da interface (Modo Real)
+mov ah, 53h               ;; Uma funï¿½ï¿½o APM
+mov al, 01h               ;; Nï¿½mero da interface (Modo Real)
 xor bx, bx                ;; ID do dispositivo (APM BIOS)
-int 15h                   ;; Chama a função APM
-jc APM_ERRO_CONEXAO       ;; Caso ocorra erro, chama manipulador específico
+int 15h                   ;; Chama a funï¿½ï¿½o APM
+jc APM_ERRO_CONEXAO       ;; Caso ocorra erro, chama manipulador especï¿½fico
  
-ativar_gerenciamento: ;; Será habilitado o gerenciamento energético para todos 
+ativar_gerenciamento: ;; Serï¿½ habilitado o gerenciamento energï¿½tico para todos 
                        ;; os dispositivos
 
-mov ah, 53h                ;; Uma função APM
+mov ah, 53h                ;; Uma funï¿½ï¿½o APM
 mov al, 08h                ;; Estado de gerenciamento
 mov bx, 0001h              ;; Dispositivo
 mov cx, 0001h              ;; Gerenciamento habilitado
-int 15h                    ;; Chama a função APM
-jc APM_ERRO_GERENCIAMENTO  ;; Caso ocorra erro, chama manipulador específico
+int 15h                    ;; Chama a funï¿½ï¿½o APM
+jc APM_ERRO_GERENCIAMENTO  ;; Caso ocorra erro, chama manipulador especï¿½fico
 
 HAL_APM_FIM:
 
@@ -85,25 +130,25 @@ ret
 
 ;;**************************************************************************************
 ;;
-;;                           Erros durante as operações APM                                 
+;;                           Erros durante as operaï¿½ï¿½es APM                                 
 ;;
 ;;**************************************************************************************
 
 APM_ERRO_INSTALACAO:
 
-;; Futuramente, o sistema será informado
+;; Futuramente, o sistema serï¿½ informado
 
 jmp HAL_APM_FIM
 
 APM_ERRO_CONEXAO:
 
-;; Futuramente, o sistema será informado
+;; Futuramente, o sistema serï¿½ informado
 
 jmp ativar_gerenciamento
 
 APM_ERRO_GERENCIAMENTO:
 
-;; Futuramente, o sistema será informado
+;; Futuramente, o sistema serï¿½ informado
 
 ret
 
@@ -111,6 +156,6 @@ ret
 APM_ERRO_DESCONEXAO:
 
 cmp ah, 03h               
-jmp ativar_gerenciamento    ;; Erro APM, quando o código de erro é 3, indicando que
+jmp ativar_gerenciamento    ;; Erro APM, quando o cï¿½digo de erro ï¿½ 3, indicando que
                             ;; nenhuma interface foi conectada
  

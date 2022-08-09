@@ -12,25 +12,70 @@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;
-;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;        HAL - Camada de Abstraï¿½ï¿½o de Hardware do PX-DOS  
 ;;
-;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
-;; removiveis em um unico driver carregavel, durante o processo de inicialização.
-;;
-;;
-;;
-;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
-;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;; Este mï¿½dulo inclui todos os serviï¿½os essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicializaï¿½ï¿½o.
 ;;
 ;;
 ;;
-;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Este driver ajudarï¿½ o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removï¿½veis e arquiteturas x86 genï¿½ricas suportadas.
+;;
+;;
+;;
+;; Copyright ï¿½ 2013-2016 Felipe Miguel Nery Lunkes
 ;; Todos os direitos reservados.
 ;;
-;; A distribuição, reprodução total ou parcial de qualquer trecho do código
-;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
-;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
-;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
+;;
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;********************************************************************************************
 
@@ -129,33 +174,33 @@ cpu 186
 ;;*********************************************************************************
 
 
-[BITS 16] ;; O código gerado deverá ser 16 Bits, apenas
+[BITS 16] ;; O cï¿½digo gerado deverï¿½ ser 16 Bits, apenas
 
-;; A seguir um mapa de memória será gerado para exibir os offsets 
-;; dos símbolos internos
+;; A seguir um mapa de memï¿½ria serï¿½ gerado para exibir os offsets 
+;; dos sï¿½mbolos internos
 
-[map symbols sections brief segments Driver\simbolos.txt] ;; Criar mapa de símbolos em um
+[map symbols sections brief segments Driver\simbolos.txt] ;; Criar mapa de sï¿½mbolos em um
                                                           ;; arquivo de texto comum.
 
-cpu 8086  ;; No início, usar modo de código legado Intel 8086
+cpu 8086  ;; No inï¿½cio, usar modo de cï¿½digo legado Intel 8086
 
-org 0     ;; O driver para PX-DOS deverá sempre começar no offset 0
+org 0     ;; O driver para PX-DOS deverï¿½ sempre comeï¿½ar no offset 0
 
-%include "HAL\cabecalho.asm" ;; Aqui está o cabeçalho do Driver e Controle de Registradores
+%include "HAL\cabecalho.asm" ;; Aqui estï¿½ o cabeï¿½alho do Driver e Controle de Registradores
 
 cpu 186
 
 
-%define .hal [section .text align=16 vstart=0h] ;; Seção de Texto
-%define __BSS__ [section .bss align=16] ;; Seção de Dados não inicializados leitura-escrita
-%define .dados [section .data align=16] ;; Seção de Dados inicializados e leitura-escrita
-%define .rdados [section .rdata align=8 vstart=200h]  ;; Seção de dados somente leitura 
-                                                      ;; não inicializados
-%define .krnl [section .data] ;; Instância da Seção de Dados a ser usada para armazenar
-                              ;; dados e estruturas que serão utilizadas para a comunicação
+%define .hal [section .text align=16 vstart=0h] ;; Seï¿½ï¿½o de Texto
+%define __BSS__ [section .bss align=16] ;; Seï¿½ï¿½o de Dados nï¿½o inicializados leitura-escrita
+%define .dados [section .data align=16] ;; Seï¿½ï¿½o de Dados inicializados e leitura-escrita
+%define .rdados [section .rdata align=8 vstart=200h]  ;; Seï¿½ï¿½o de dados somente leitura 
+                                                      ;; nï¿½o inicializados
+%define .krnl [section .data] ;; Instï¿½ncia da Seï¿½ï¿½o de Dados a ser usada para armazenar
+                              ;; dados e estruturas que serï¿½o utilizadas para a comunicaï¿½ï¿½o
 							  ;; entre a HAL e o Kernel do PX-DOS
-%define .comen [section .comment align=16 vstart=600h] ;; Seção .comment
-%define .inf [section .info align=8 vstart=900h] ;; Seção de Informações do Arquivo
+%define .comen [section .comment align=16 vstart=600h] ;; Seï¿½ï¿½o .comment
+%define .inf [section .info align=8 vstart=900h] ;; Seï¿½ï¿½o de Informaï¿½ï¿½es do Arquivo
 
 
 
@@ -189,10 +234,10 @@ call __DRIVER_FIM__
 
 ;;**************************************************************************************
 
-INTE: ;; Instala uma interrupção que pode ser chamada pelo sistema sempre que necessário.
-      ;; Esta interrupção também pode ser chamada pelos programas para reiniciar a HAL,
-	  ;; para que atualize os dispositivos instalados e forneça informações atualizadas.
-	  ;; No caso, basta chamar a interrupção 69h, em assembly. Também pode ser chamada
+INTE: ;; Instala uma interrupï¿½ï¿½o que pode ser chamada pelo sistema sempre que necessï¿½rio.
+      ;; Esta interrupï¿½ï¿½o tambï¿½m pode ser chamada pelos programas para reiniciar a HAL,
+	  ;; para que atualize os dispositivos instalados e forneï¿½a informaï¿½ï¿½es atualizadas.
+	  ;; No caso, basta chamar a interrupï¿½ï¿½o 69h, em assembly. Tambï¿½m pode ser chamada
 	  ;; por programas em C, ou em qualquer outra linguagem.
 
 or ax, ax
@@ -231,9 +276,9 @@ dadosPrincipal equ ($$-__DRIVER_INIT__)
 
 ;;**************************************************************************************
 
-;; Cabeçalho Final do Driver - Este cabeçalho traz informações importantes
-;; sobre o tipo do Driver, que também é analisado pelo Kernel no início da
-;; execução do Driver.
+;; Cabeï¿½alho Final do Driver - Este cabeï¿½alho traz informaï¿½ï¿½es importantes
+;; sobre o tipo do Driver, que tambï¿½m ï¿½ analisado pelo Kernel no inï¿½cio da
+;; execuï¿½ï¿½o do Driver.
 
 ;;**************************************************************************************
 
@@ -245,7 +290,7 @@ SIS_REQ: db "0.9.0",0
 
 BUILD: db "PXDOS.Xandar@"
 
-.inf ;; Seção de informações do arquivo à ser gerado
+.inf ;; Seï¿½ï¿½o de informaï¿½ï¿½es do arquivo ï¿½ ser gerado
 
 SEP: times 1 db ' Informacoes relativas a este driver (HAL.SIS): '
 

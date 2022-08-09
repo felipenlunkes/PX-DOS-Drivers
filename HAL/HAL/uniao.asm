@@ -12,45 +12,90 @@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;
-;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;        HAL - Camada de Abstraï¿½ï¿½o de Hardware do PX-DOS  
 ;;
-;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
-;; removiveis em um unico driver carregavel, durante o processo de inicialização.
-;;
-;;
-;;
-;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
-;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;; Este mï¿½dulo inclui todos os serviï¿½os essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicializaï¿½ï¿½o.
 ;;
 ;;
 ;;
-;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Este driver ajudarï¿½ o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removï¿½veis e arquiteturas x86 genï¿½ricas suportadas.
+;;
+;;
+;;
+;; Copyright ï¿½ 2013-2016 Felipe Miguel Nery Lunkes
 ;; Todos os direitos reservados.
 ;;
-;; A distribuição, reprodução total ou parcial de qualquer trecho do código
-;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
-;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
-;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
+;;
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;********************************************************************************************
 ;;
-;;                                 Arquivo de União
+;;                                 Arquivo de Uniï¿½o
 ;;
-;;  Este arquivo reune todos os outros arquivos fonte, formando uma ligação entre
-;;              os módulos da HAL, unificando assim o binário final                 
+;;  Este arquivo reune todos os outros arquivos fonte, formando uma ligaï¿½ï¿½o entre
+;;              os mï¿½dulos da HAL, unificando assim o binï¿½rio final                 
 ;;
 ;;
 ;;**************************************************************************************
 
 [BITS 16]
 
-cpu 386 ;; Aqui precisarei de uma CPU 386 no mínimo
+cpu 386 ;; Aqui precisarei de uma CPU 386 no mï¿½nimo
 
 
 ;;***************************************************************************************
 
 
-;;*****Inclusão do restante dos arquivos*******
+;;*****Inclusï¿½o do restante dos arquivos*******
 
 %include "Video\video.asm"
 %include "APM\APM.asm"
@@ -75,7 +120,7 @@ cpu 386 ;; Aqui precisarei de uma CPU 386 no mínimo
 
 %ifdef COM1
 
-%include "Serial\Arena.inc" ;; Inclui o arquivo que será possui as funções de envio
+%include "Serial\Arena.inc" ;; Inclui o arquivo que serï¿½ possui as funï¿½ï¿½es de envio
                             ;; e recebimento de dados.
 %include "Serial\serial.asm"
 
@@ -88,26 +133,26 @@ cpu 386 ;; Aqui precisarei de uma CPU 386 no mínimo
 
 ;;***************************************************************************************
 
-__INICIAR: ;; Procedimento principal para a execução do código da HAL
+__INICIAR: ;; Procedimento principal para a execuï¿½ï¿½o do cï¿½digo da HAL
 
-;;******Chama as funções obtidas dos arquivos*******
+;;******Chama as funï¿½ï¿½es obtidas dos arquivos*******
 
-call INTE ;; Realiza a instalação da interrupção
+call INTE ;; Realiza a instalaï¿½ï¿½o da interrupï¿½ï¿½o
 
-call VERIFICAR_VERSAO_PXDOS ;; Verificará se a versão do sistema é suportada ou não
+call VERIFICAR_VERSAO_PXDOS ;; Verificarï¿½ se a versï¿½o do sistema ï¿½ suportada ou nï¿½o
 
-call splash ;; Cria a entrada gráfica do Driver, apenas, em verificação de versão 
+call splash ;; Cria a entrada grï¿½fica do Driver, apenas, em verificaï¿½ï¿½o de versï¿½o 
             ;; suportada
 
 %ifdef PROCINFO
 
-call HAL_Iniciar_APM ;; Realiza a instalação e checagem do Driver APM
+call HAL_Iniciar_APM ;; Realiza a instalaï¿½ï¿½o e checagem do Driver APM
 
-call VERIFICAR_X86 ;; Chama a módulo de verificação de funções do processador
+call VERIFICAR_X86 ;; Chama a mï¿½dulo de verificaï¿½ï¿½o de funï¿½ï¿½es do processador
 
 %endif
 
-call INTERRUPCAO ;; Substitui a interrupção primitiva instalada anteriormente para uma
+call INTERRUPCAO ;; Substitui a interrupï¿½ï¿½o primitiva instalada anteriormente para uma
                  ;; com manipulador
 
 %ifndef PROCINFO
@@ -118,10 +163,10 @@ call BANDEIRA ;; Verifica e retorna a Bandeira do processador principal instalad
 
 ;;***************************************************************************************
 ;;
-;; À partir de agora, as funções serão chamadas apenas se a configuração da HAL permitir.
+;; ï¿½ partir de agora, as funï¿½ï¿½es serï¿½o chamadas apenas se a configuraï¿½ï¿½o da HAL permitir.
 ;;
-;; Ou seja, apenas se os Macros estiverem definidos durante a compilação, para a 
-;; distinção de configuração.
+;; Ou seja, apenas se os Macros estiverem definidos durante a compilaï¿½ï¿½o, para a 
+;; distinï¿½ï¿½o de configuraï¿½ï¿½o.
 ;;
 ;;;;***************************************************************************************
 
@@ -143,12 +188,12 @@ call HAL_Serial ;; Realiza um DEBUG sobre a COM1
 
 ;;***************************************************************************************
 ;;
-;; Novamente, funções internas globais, para ambas as plataformas
+;; Novamente, funï¿½ï¿½es internas globais, para ambas as plataformas
 ;;
 ;;
 ;;;;***************************************************************************************
 
-call VERIFICAR_MEMORIA ;; Chama o módulo de verificação de Memória RAM
+call VERIFICAR_MEMORIA ;; Chama o mï¿½dulo de verificaï¿½ï¿½o de Memï¿½ria RAM
 
 ;;***************************************************************************************
 

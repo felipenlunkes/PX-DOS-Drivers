@@ -12,32 +12,77 @@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;
-;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;        HAL - Camada de Abstraï¿½ï¿½o de Hardware do PX-DOS  
 ;;
-;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
-;; removiveis em um unico driver carregavel, durante o processo de inicialização.
-;;
-;;
-;;
-;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
-;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;; Este mï¿½dulo inclui todos os serviï¿½os essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicializaï¿½ï¿½o.
 ;;
 ;;
 ;;
-;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Este driver ajudarï¿½ o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removï¿½veis e arquiteturas x86 genï¿½ricas suportadas.
+;;
+;;
+;;
+;; Copyright ï¿½ 2013-2016 Felipe Miguel Nery Lunkes
 ;; Todos os direitos reservados.
 ;;
-;; A distribuição, reprodução total ou parcial de qualquer trecho do código
-;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
-;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
-;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
+;;
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;********************************************************************************************
 ;;
 ;;
 ;;                     Arquivo de Controle de Portas Seriais
 ;;
-;;          Este arquivo contém funções complementares de acesso a Portas Seriais
+;;          Este arquivo contï¿½m funï¿½ï¿½es complementares de acesso a Portas Seriais
 ;;                                 
 ;;
 ;;
@@ -65,37 +110,37 @@
 
 ;;************************************************************************
 
-iniciar_serial:  ;; Esse método é usado para inicializar uma Porta Serial
+iniciar_serial:  ;; Esse mï¿½todo ï¿½ usado para inicializar uma Porta Serial
 
 
     mov ah, 0               ; Move o valor 0 para o registrador ah 
-	                        ; A função 0 é usada para inicializar a Porta Serial COM1
-    mov al, 0xe3            ; Parâmetros da porta serial
-    mov dx, 0               ; Número da porta (COM 1) - Porta Serial 1
+	                        ; A funï¿½ï¿½o 0 ï¿½ usada para inicializar a Porta Serial COM1
+    mov al, 0xe3            ; Parï¿½metros da porta serial
+    mov dx, 0               ; Nï¿½mero da porta (COM 1) - Porta Serial 1
     int 0x14                ; Inicializar porta - Ativa a porta para receber e enviar dados
 	
 	ret
 	
 ;;************************************************************************
 	
-transferir:  ;; Esse método é usado para transferir dados pela Porta Serial aberta
+transferir:  ;; Esse mï¿½todo ï¿½ usado para transferir dados pela Porta Serial aberta
 
-lodsb         ;; Carrega o próximo caractere à ser enviado
+lodsb         ;; Carrega o prï¿½ximo caractere ï¿½ ser enviado
 
 or al, al     ;; Compara o caractere com o fim da mensagem
 jz .pronto    ;; Se igual ao fim, pula para .pronto
 
-mov ah, 0x1   ;; Função de envio de caractere do BIOS por Porta Serial
-int 0x14      ;; Chama o BIOS e executa a ação 
+mov ah, 0x1   ;; Funï¿½ï¿½o de envio de caractere do BIOS por Porta Serial
+int 0x14      ;; Chama o BIOS e executa a aï¿½ï¿½o 
 
 jc near .erro
 
-jmp transferir ;; Se não tiver acabado, volta à função e carrega o próximo caractere
+jmp transferir ;; Se nï¿½o tiver acabado, volta ï¿½ funï¿½ï¿½o e carrega o prï¿½ximo caractere
 
 
 .pronto: ;; Se tiver acabado...
 
-ret      ;; Retorna a função que o chamou
+ret      ;; Retorna a funï¿½ï¿½o que o chamou
 
 .erro:
 
@@ -107,7 +152,7 @@ ret
 
 receber: ;; Recebe os dados enviados pela Porta Serial, em resposta
 
-	mov ah, 2 ;; Define função 2 - Obter cracteres
+	mov ah, 2 ;; Define funï¿½ï¿½o 2 - Obter cracteres
 	mov dx, 0 ;; Define Porta Serial 0 (COM1)
 	
 	int 0x14  ;; Chama o BIOS
@@ -116,16 +161,16 @@ receber: ;; Recebe os dados enviados pela Porta Serial, em resposta
 	
 	cmp al, '$' ;; Compara a resposta com '$'
 	            ;; Se for igual, significa o fim da mensagem
-	je .pronto  ;; Se for igual, vai até .pronto, para terminar
+	je .pronto  ;; Se for igual, vai atï¿½ .pronto, para terminar
 	
-	mov [recebido + 1] , al ;; Se não, joga o valor para dentro da variável
+	mov [recebido + 1] , al ;; Se nï¿½o, joga o valor para dentro da variï¿½vel
 	
-	jmp receber ;; Volta a executar para receber o próximo caractere
+	jmp receber ;; Volta a executar para receber o prï¿½ximo caractere
 
 
 	.pronto:
 	
-	ret ;; Retorna a função que o chamou
+	ret ;; Retorna a funï¿½ï¿½o que o chamou
 	
 	.erro:
 	
@@ -137,5 +182,5 @@ receber: ;; Recebe os dados enviados pela Porta Serial, em resposta
 
 .dados
 	
-recebido times 64 db 0 ;; Variável em memória de tamanho 64
+recebido times 64 db 0 ;; Variï¿½vel em memï¿½ria de tamanho 64
 

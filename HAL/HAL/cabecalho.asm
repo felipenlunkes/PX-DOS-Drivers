@@ -12,31 +12,76 @@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;
-;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;        HAL - Camada de Abstraï¿½ï¿½o de Hardware do PX-DOS  
 ;;
-;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
-;; removiveis em um unico driver carregavel, durante o processo de inicialização.
-;;
-;;
-;;
-;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
-;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;; Este mï¿½dulo inclui todos os serviï¿½os essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicializaï¿½ï¿½o.
 ;;
 ;;
 ;;
-;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Este driver ajudarï¿½ o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removï¿½veis e arquiteturas x86 genï¿½ricas suportadas.
+;;
+;;
+;;
+;; Copyright ï¿½ 2013-2016 Felipe Miguel Nery Lunkes
 ;; Todos os direitos reservados.
 ;;
-;; A distribuição, reprodução total ou parcial de qualquer trecho do código
-;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
-;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
-;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
+;;
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;********************************************************************************************
 ;;
-;;                               Arquivo de Cabeçalho
+;;                               Arquivo de Cabeï¿½alho
 ;;
-;;  Este arquivo contém a assinatura de driver e assinaturas importantes 
+;;  Este arquivo contï¿½m a assinatura de driver e assinaturas importantes 
 ;;                                 
 ;;
 ;;
@@ -51,7 +96,7 @@
 
 ;;***********************************************************
 ;;
-;; Cabeçalho de Driver para PX-DOS 0.9.0 ou superior
+;; Cabeï¿½alho de Driver para PX-DOS 0.9.0 ou superior
 ;;
 ;;
 ;;
@@ -60,7 +105,7 @@
 ;;
 ;;***********************************************************
 
-[BITS 16]      ;; Define que o código gerado deverá ser 16 Bits
+[BITS 16]      ;; Define que o cï¿½digo gerado deverï¿½ ser 16 Bits
 
 org 0h          ;; Define o Offset para 0 (0h)
 
@@ -70,12 +115,12 @@ org 0h          ;; Define o Offset para 0 (0h)
 ;-----------------------------------------------+
 ;            Tipo do Dispositivo                ; 1 word
 ;                                               ;
-; 1h - Dispositivo de caracter (Vídeo...)       ;
-; 2h - Mídias de armazenamento de massa (HD, CD);
-; 3h - Mídias de armazenamento (Disquete)       ;
-; 4h - Relógio                                  ;
-; 5h - Rede e acesso a periféricos              ;
-; 6h - Configuração                             ;
+; 1h - Dispositivo de caracter (Vï¿½deo...)       ;
+; 2h - Mï¿½dias de armazenamento de massa (HD, CD);
+; 3h - Mï¿½dias de armazenamento (Disquete)       ;
+; 4h - Relï¿½gio                                  ;
+; 5h - Rede e acesso a perifï¿½ricos              ;
+; 6h - Configuraï¿½ï¿½o                             ;
 ; 7h - Porta Serial COM                         ;
 ; 8h - Reservado ao Sistema                     ;
 ; 9h - Subsistema PX-DOS                        ;
@@ -83,49 +128,49 @@ org 0h          ;; Define o Offset para 0 (0h)
 ; 12 - Porta Paralela LPT1                      ;
 ; 12 - USB                                      ;
 ;-----------------------------------------------+
-;            Número da interrupção              ; 1 word
+;            Nï¿½mero da interrupï¿½ï¿½o              ; 1 word
 ;          implementada pelo Driver             ;
 ;-----------------------------------------------+
 ;     Tipo de Driver e Dispositivo associado    ; 11 bytes
 ;                                               ;
-; Deve conter até letras, mais até oito espacos,;
+; Deve conter atï¿½ letras, mais atï¿½ oito espacos,;
 ;         formando 11 bytes no total.           ;
 ;                                               ;
-;   Pode ser (não se resumindo apenas a):       ;
+;   Pode ser (nï¿½o se resumindo apenas a):       ;
 ;                                               ;
 ; "DEV        " - Dispositivo                   ;
 ; "ARMAZENAMEN" - Armazenamento                 ;
-; "IO         " - Entrada e Saída               ;
+; "IO         " - Entrada e Saï¿½da               ;
 ; "REDE       " - Redes diversas                ;
 ; "RELOGIO    " - Relogio                       ;
 ;                                               ;
-; Estes são nomes padrão. Nomes customizados    ;
+; Estes sï¿½o nomes padrï¿½o. Nomes customizados    ;
 ; podem ser utilizados.                         ;
 ;-----------------------------------------------+
 ;  Ponteiro para o ponto de entrada do Driver   ; 1 word
 ;-----------------------------------------------+
-;     Ponteiro para a Interrupção do Driver     ; 1 word
+;     Ponteiro para a Interrupï¿½ï¿½o do Driver     ; 1 word
 ;-----------------------------------------------+
-;  Versão do Sistema Requerida para a execução  ; 1 byte
+;  Versï¿½o do Sistema Requerida para a execuï¿½ï¿½o  ; 1 byte
 ;-----------------------------------------------;
-;Subversão do Sistema Requerida para a execução ; 1 byte
+;Subversï¿½o do Sistema Requerida para a execuï¿½ï¿½o ; 1 byte
 ;-----------------------------------------------;
 
-Driver: ;; Início do Cabeçalho, que deverá estar presente no início do arquivo
-        ;; executável.
+Driver: ;; Inï¿½cio do Cabeï¿½alho, que deverï¿½ estar presente no inï¿½cio do arquivo
+        ;; executï¿½vel.
 
-.assinatura: dw "PX"           ;; A declaração da assinatura deve estar aqui, no início.
+.assinatura: dw "PX"           ;; A declaraï¿½ï¿½o da assinatura deve estar aqui, no inï¿½cio.
 .tipo: dw 8h                   ;; Tipo do Driver
-.numero: dw 0                  ;; Número da interrupção implementada pelo Driver
-.nome_driver: db "HAL        " ;; Tipo de função válida a ser exercida pelo Driver   	
-.estrategia: dw INICIO         ;; Ponto de Entrada para o início
-.interrupcao: dw INTE          ;; Ponto de Entrada para a Interrupção     
-.versao: dw 0                  ;; Versão Maior do sistema requerida
-.subversao: dw 9               ;; Versão Menor do sistema requerida - Sendo assim, juntando
-                               ;; as duas declarações, o driver foi desenvolvido para a
-                               ;; versão 0.9.0 do PX-DOS ou superiores 
+.numero: dw 0                  ;; Nï¿½mero da interrupï¿½ï¿½o implementada pelo Driver
+.nome_driver: db "HAL        " ;; Tipo de funï¿½ï¿½o vï¿½lida a ser exercida pelo Driver   	
+.estrategia: dw INICIO         ;; Ponto de Entrada para o inï¿½cio
+.interrupcao: dw INTE          ;; Ponto de Entrada para a Interrupï¿½ï¿½o     
+.versao: dw 0                  ;; Versï¿½o Maior do sistema requerida
+.subversao: dw 9               ;; Versï¿½o Menor do sistema requerida - Sendo assim, juntando
+                               ;; as duas declaraï¿½ï¿½es, o driver foi desenvolvido para a
+                               ;; versï¿½o 0.9.0 do PX-DOS ou superiores 
 			
-;; Fim do cabeçalho
+;; Fim do cabeï¿½alho
 
 push sp
 push ss
@@ -141,7 +186,7 @@ mov fs, ax
 xor ax, ax
 
 
-jmp INICIO ;; Código usado durante a execução do Driver
+jmp INICIO ;; Cï¿½digo usado durante a execuï¿½ï¿½o do Driver
 
 ;;**************************************************************************************
 

@@ -12,32 +12,77 @@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;
-;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;        HAL - Camada de Abstraï¿½ï¿½o de Hardware do PX-DOS  
 ;;
-;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
-;; removiveis em um unico driver carregavel, durante o processo de inicialização.
-;;
-;;
-;;
-;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
-;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;; Este mï¿½dulo inclui todos os serviï¿½os essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicializaï¿½ï¿½o.
 ;;
 ;;
 ;;
-;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Este driver ajudarï¿½ o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removï¿½veis e arquiteturas x86 genï¿½ricas suportadas.
+;;
+;;
+;;
+;; Copyright ï¿½ 2013-2016 Felipe Miguel Nery Lunkes
 ;; Todos os direitos reservados.
 ;;
-;; A distribuição, reprodução total ou parcial de qualquer trecho do código
-;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
-;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
-;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
+;;
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;********************************************************************************************
 
 .hal
 
 
-INICIO_VM: ;; Inicia a máquina virtual x86	
+INICIO_VM: ;; Inicia a mï¿½quina virtual x86	
 
     smsw ax
 	
@@ -45,17 +90,17 @@ INICIO_VM: ;; Inicia a máquina virtual x86
 	je INICIO_VM_CONTINUAR
 	
 	mov ax, 05h		; Sair para o PX-DOS
-	mov bx, 01h     ; Com código de erro 1
+	mov bx, 01h     ; Com cï¿½digo de erro 1
 	int 90h
 
-; Definir base e descritores de código para CS<<4/DS<<4 (CS=DS)
+; Definir base e descritores de cï¿½digo para CS<<4/DS<<4 (CS=DS)
 
 INICIO_VM_CONTINUAR:
 	
     xor ebx, ebx
 	
 	mov bx, cs		; BX= segmento
-	shl ebx, 4		; EBX= endereço linear para o segmento base
+	shl ebx, 4		; EBX= endereï¿½o linear para o segmento base
 	mov eax, ebx
 	
 	mov [gdt1 + 2], ax
@@ -71,13 +116,13 @@ INICIO_VM_CONTINUAR:
 	
 ; Apontar gdtr para a gdt, e idtr para idt
 
-	add ebx,gdt		; EBX= Endereço linear da gdt
+	add ebx,gdt		; EBX= Endereï¿½o linear da gdt
 	mov [gdtr + 2], ebx
 	
-	add ebx,idt - gdt	; EBX= Endereço linear da idt
+	add ebx,idt - gdt	; EBX= Endereï¿½o linear da idt
 	mov [idtr + 2], ebx
 	
-; Desativar interrupções
+; Desativar interrupï¿½ï¿½es
 
 	cli
 	
@@ -107,19 +152,19 @@ INICIO_VM_CONTINUAR:
 Ir_Para_Protegido:	
 
     mov ax, SELETOR_DADOS_SIS
-	mov ds, ax		; Agora não temos segmentos: apenas SELETORES
+	mov ds, ax		; Agora nï¿½o temos segmentos: apenas SELETORES
 	mov ss, ax
 	nop
 	mov es, ax
 	mov fs, ax
 	mov gs, ax
 	
-; Diga Olá!
+; Diga Olï¿½!
 
 	lea esi, [ola_msg]
 	call escrever_string
 	
-; Tentar uma interrupção
+; Tentar uma interrupï¿½ï¿½o
 
 	int 20h
 	
@@ -128,7 +173,7 @@ Ir_Para_Protegido:
 	jmp SELETOR_CODIGO_REAL:Ir_Para_Real
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Rotina de saída de caracteres
+;	Rotina de saï¿½da de caracteres
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 escreverChar:	
@@ -158,7 +203,7 @@ escreverChar:
 		push eax
 		mov [gs:ebx], al
 		
-; Avanças Cursor
+; Avanï¿½as Cursor
 
 		mov cx, [CsrX]
 		inc cl
@@ -184,7 +229,7 @@ escreverChar2:
 	ret
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;	Rotina de saída de Strings
+;;	Rotina de saï¿½da de Strings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 escrever_string:	
@@ -207,8 +252,8 @@ escrever_string2:
 	ret
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;	Manipulador para interrupções
-;;	Exibe: "Interrupção desconhecida"
+;;	Manipulador para interrupï¿½ï¿½es
+;;	Exibe: "Interrupï¿½ï¿½o desconhecida"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 int_desconhecida:	
@@ -278,7 +323,7 @@ Ir_Para_Real16:
 
 	lidt [ridtr]
 	
-; Habilitar interrupções
+; Habilitar interrupï¿½ï¿½es
 
 	sti
 
@@ -302,13 +347,13 @@ interrupcao_20h_msg:
 	db "", 0
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	16-bit/32-bit - endereço limite linear
+;	16-bit/32-bit - endereï¿½o limite linear
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 gdtr:	dw gdt_fim - gdt - 1	; limite GDT
-	dd gdt			; linear, endereço físico de GDT
+	dd gdt			; linear, endereï¿½o fï¿½sico de GDT
 
 idtr:	dw idt_fim - idt - 1	; limite IDT
-	dd idt			; linear, endereço físico de IDT
+	dd idt			; linear, endereï¿½o fï¿½sico de IDT
 
 ; Uma IDTR 'apropriada' para modo real
 
@@ -337,7 +382,7 @@ SELETOR_LINEAR	equ	$-gdt
 	db 0x92			; presente, ring 0, data, expand-up, writable
 	db 0xCF			; page-granular, 32-bit
 	db 0
-; descritor de código
+; descritor de cï¿½digo
 
 SELETOR_CODIGO_SIS	equ	$-gdt
 gdt1:	dw 0xFFFF
@@ -356,7 +401,7 @@ gdt2:	dw 0xFFFF
 	db 0xCF
 	db 0
 	
-; descritor de segmento de código 'apropriado' para modo real
+; descritor de segmento de cï¿½digo 'apropriado' para modo real
 
 ; (16-bit, limite=0xFFFF)
 
@@ -382,10 +427,10 @@ gdt4:	dw 0xFFFF
 gdt_fim:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Tabela de Descritores de Interrupção (IDT)
+;	Tabela de Descritores de Interrupï¿½ï¿½o (IDT)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; 32 interrupções reservadas:
+; 32 interrupï¿½ï¿½es reservadas:
 
 idt:	dw int_desconhecida		; ponto de entrada 15:0
 	dw SELETOR_CODIGO_SIS		; seletor
@@ -579,7 +624,7 @@ idt:	dw int_desconhecida		; ponto de entrada 15:0
 	db 0x8E
 	dw 0
 	
-; Interrupção do Usuário
+; Interrupï¿½ï¿½o do Usuï¿½rio
 
 	dw interrupcao_20h
 	dw SELETOR_CODIGO_SIS

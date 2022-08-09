@@ -2,45 +2,65 @@
 ;;
 ;; Driver de Porta Serial PXCOM para PX-DOS 1.1.r2 "Arena"
 ;;
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
 ;;
-;; Sistema Operacional PX-DOS 0.9.0
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;
-;; Este driver é protegido por direitos autorais, assim como 
-;; o Sistema Operacional PX-DOS e as bibliotecas utilizadas.
 ;;
-;; O Sistema Operacional PX-DOS é de propriedade de 
-;; Felipe Miguel Nery Lunkes
-;;
-;; Este driver de dispositivo é propriedade de
-;; Felipe Miguel Nery Lunkes
-;;
-;;
-;; Punições legais poderão ser feitas caso esse(s) arquivos
-;; sejam copiados, distribuídos, xerocados, recompilados sem
-;; as informações legais e créditos originais e impressos.
-;; Esse driver é protegido com licenças proprietárias, ou seja,  
-;; todo o conteúdo aqui presente é fechado e restrito às pessoas
-;; autorizadas. A distribuição dos códigos fonte é proibida,
-;; e a distruibuição ou utilização em forma binária em outros
-;; sistemas operacionais que não são o PX-DOS será autorizada
-;; apenas com a autorização por escrito do desenvolvedor.
-;;
-;;
-;; Copyright © 2014-2016 Felipe Miguel Nery Lunkes
-;; Todos os direitos reservados.
-;;
-;;************************************************************************
-;;
-;;
-;;
-;; Este driver é usado para iniciar a posta serial, ou seja, pode ser usado, com alguns
-;; acréscimos, para imprimir algo em impressoras serias (USB não). No momento está
-;; sendo usado para testar o sistema. Quando ele é carregado, ele gera um relatório
-;; que contém informações relativas a memória RAM total durante o carregamento do
-;; sistema, o processador instalado e algumas informações úteis. Logo após ele
+;; Este driver ï¿½ usado para iniciar a posta serial, ou seja, pode ser usado, com alguns
+;; acrï¿½scimos, para imprimir algo em impressoras serias (USB nï¿½o). No momento estï¿½
+;; sendo usado para testar o sistema. Quando ele ï¿½ carregado, ele gera um relatï¿½rio
+;; que contï¿½m informaï¿½ï¿½es relativas a memï¿½ria RAM total durante o carregamento do
+;; sistema, o processador instalado e algumas informaï¿½ï¿½es ï¿½teis. Logo apï¿½s ele
 ;; o envia para um computador Linux conectado ao computador que roda o PX-DOS.
-;; Lá, o conteúdo do relatório poderá ser analisado.
+;; Lï¿½, o conteï¿½do do relatï¿½rio poderï¿½ ser analisado.
 ;;
 ;; Copyright (C) 2014-2016 Felipe Miguel Nery Lunkes
 ;;
@@ -49,21 +69,21 @@
 
 %include "C:\Dev\ASM\Driver\driver.s"
 
-mov ax, cs ;; Essa instrução move o conteúdo do registrador cs para o ax.
-           ;; Aqui movemos o endereço da memória em que o código do
+mov ax, cs ;; Essa instruï¿½ï¿½o move o conteï¿½do do registrador cs para o ax.
+           ;; Aqui movemos o endereï¿½o da memï¿½ria em que o cï¿½digo do
 		   ;; driver foi carreado para ax.
-		   ;; O endereço é como 7000h.
-mov bx, ax ;; Copiamos o endereço em ax para bx.
+		   ;; O endereï¿½o ï¿½ como 7000h.
+mov bx, ax ;; Copiamos o endereï¿½o em ax para bx.
 mov es, ax ;; A mesma coisa...
 mov fs, ax ;; A mesma coisa...
 mov gs, ax ;; A mesma coisa...
 
 
-jmp INICIO ;; Pula para inicio, uma função. Similar a inicio(); em Java ou C
+jmp INICIO ;; Pula para inicio, uma funï¿½ï¿½o. Similar a inicio(); em Java ou C
 
 ;;************************************************************************
 
-%include "Arena.inc" ;; Inclui o arquivo que será possui as funções de envio
+%include "Arena.inc" ;; Inclui o arquivo que serï¿½ possui as funï¿½ï¿½es de envio
                      ;; e recebimento de dados.
 
 
@@ -74,15 +94,15 @@ jmp INICIO ;; Pula para inicio, uma função. Similar a inicio(); em Java ou C
 
 section .text
 
-INICIO: ;; Função inicio
+INICIO: ;; Funï¿½ï¿½o inicio
 
    print 10,13,"Iniciando o Arena...",0
 					
     call iniciar_serial ;; Inicia a Porta Serial COM1
    
-    mov si, msgInicio ;; Move para si o conteúdo da variável msgInicio, criada lá no final.
+    mov si, msgInicio ;; Move para si o conteï¿½do da variï¿½vel msgInicio, criada lï¿½ no final.
 
-    call transferir ;; Chama o método para transferir a mensagem
+    call transferir ;; Chama o mï¿½todo para transferir a mensagem
 	
 	call iniciar_serial
 	
@@ -127,7 +147,7 @@ INICIO: ;; Função inicio
 	
 	print " Passou por aqui 2",0
 	
-	call obterProcessador ;; Chama um método que identifica o processador
+	call obterProcessador ;; Chama um mï¿½todo que identifica o processador
 
 	
 	mov si, msgEspaco
@@ -180,18 +200,18 @@ INICIO: ;; Função inicio
 
 	
 	
-	call memoria ;; Chama um método para identificar quantos kbytes de RAM estão disponíveis
-	             ;; Isso mesmo, Kbytes, visto que é um sistema DOS 16 Bits e só suporta,
-				 ;; no máximo, 1 MB de RAM... É culpa do procesador...
+	call memoria ;; Chama um mï¿½todo para identificar quantos kbytes de RAM estï¿½o disponï¿½veis
+	             ;; Isso mesmo, Kbytes, visto que ï¿½ um sistema DOS 16 Bits e sï¿½ suporta,
+				 ;; no mï¿½ximo, 1 MB de RAM... ï¿½ culpa do procesador...
 	
 	
 	
 	mov si, msgEspaco
 
-	jmp fim ;; Pula para o Fim do Driver, em que ele é descarregado e devolve
+	jmp fim ;; Pula para o Fim do Driver, em que ele ï¿½ descarregado e devolve
 	        ;; o controle ao sistema.
 			
-SOBRE: ;; Será exibido pelo comando exibir do PX-DOS
+SOBRE: ;; Serï¿½ exibido pelo comando exibir do PX-DOS
 
 msg: db 10,13,10,13,"Driver de Porta Serial e Depuracao do PX-DOS",10,13
      db "Copyright (C) 2013-2016 Felipe Miguel Nery Lunkes",10,13,10,13,0
@@ -200,7 +220,7 @@ msg: db 10,13,10,13,"Driver de Porta Serial e Depuracao do PX-DOS",10,13
 			
 INTE:
 
-;; Não existe interrupção
+;; Nï¿½o existe interrupï¿½ï¿½o
 			
 ;;************************************************************************
 
@@ -218,7 +238,7 @@ obterProcessador:
 	
 	call transferir
 	
-	ret ;; Retorna ao método que o chamou
+	ret ;; Retorna ao mï¿½todo que o chamou
 
 ;;************************************************************************	
 
@@ -233,7 +253,7 @@ mov si, .msgMemoria
 call transferir
 
 mov ax, 0
-int 12h  ;; Chama o BIOS para descobrir quanta memória está disponível
+int 12h  ;; Chama o BIOS para descobrir quanta memï¿½ria estï¿½ disponï¿½vel
 
 call paraString
 
@@ -249,10 +269,10 @@ mov si, .msgKbytes
 
 call transferir
 
-ret ;; Retorna ao método que o chamou
+ret ;; Retorna ao mï¿½todo que o chamou
 
-;; Criando variáveis 
-;; Variáveis com . são variáveis locais, com acesso apenas ao método em que foram
+;; Criando variï¿½veis 
+;; Variï¿½veis com . sï¿½o variï¿½veis locais, com acesso apenas ao mï¿½todo em que foram
 ;; criadas.
 
 section .data
@@ -270,16 +290,16 @@ section .data
 	
 	section .text
 	
-fim: ;; Essa função é responsável por descarregar o driver da memória
+fim: ;; Essa funï¿½ï¿½o ï¿½ responsï¿½vel por descarregar o driver da memï¿½ria
      ;; e retornar o controle para o PX-DOS.
 
 	
 
-    mov ah, 05h ;; Define função 05h, de término de driver
+    mov ah, 05h ;; Define funï¿½ï¿½o 05h, de tï¿½rmino de driver
 	int 90h     ;; Chama o PX-DOS (Kernel) para descarregar o driver e retorna
-                ;; o controle ao Kernel. Essa interrupção (int 90h) só tem no PX-DOS.
-                ;; Inventei esse número! kkk Isso os programas em Java e C fazem, mas 
-                ;; você não fica sabendo. Até pra imprimir string... Na verdade eles 
+                ;; o controle ao Kernel. Essa interrupï¿½ï¿½o (int 90h) sï¿½ tem no PX-DOS.
+                ;; Inventei esse nï¿½mero! kkk Isso os programas em Java e C fazem, mas 
+                ;; vocï¿½ nï¿½o fica sabendo. Atï¿½ pra imprimir string... Na verdade eles 
                 ;; pedem ao sistema que imprimam pra eles...			
 
 ;;************************************************************************
@@ -307,7 +327,7 @@ fim: ;; Essa função é responsável por descarregar o driver da memória
 
 
 bannerPXDOS db "Copyright (C) 2014-2016 Felipe Miguel Nery Lunkes",0
-bannerNT db "Copyright © 2014-2016 Felipe Miguel Nery Lunkes",0
+bannerNT db "Copyright ï¿½ 2014-2016 Felipe Miguel Nery Lunkes",0
 DriverNome db "Driver de Porta Serial para PX-DOS",0
 Sistema db 'PX-DOS',0
 Arquitetura db 'X86 16 Bits',0
@@ -317,10 +337,10 @@ Ponto db '.',0
 ;;
 ;;
 ;; Sistema Operacional PX-DOS, PX-DOS, PX-DOS 0.1.1 ou qualquer termo
-;; derivado de PX-DOS é marca registrada de Felipe Miguel Nery Lunkes.
+;; derivado de PX-DOS ï¿½ marca registrada de Felipe Miguel Nery Lunkes.
 ;;
 ;; Copyright (C) 2014,2016 Felipe Miguel Nery Lunkes
-;; Copyright © 2014,2016 Felipe Miguel Nery Lunkes
+;; Copyright ï¿½ 2014,2016 Felipe Miguel Nery Lunkes
 ;;
 ;;
 ;;************************************************************************
@@ -328,7 +348,7 @@ Ponto db '.',0
 
 section .data
 
-.dispositivo: dw "COM1",0 ;; Especifica ao sistema que o driver usará a porta "COM1"
+.dispositivo: dw "COM1",0 ;; Especifica ao sistema que o driver usarï¿½ a porta "COM1"
 .nomeDriver: db "Arena",0   ;; Nome do Driver
 .hal: db "\DRIVERS\HAL.SIS",0 ;; Nome da HAL
 

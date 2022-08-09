@@ -12,32 +12,77 @@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;           @@@@    @@@@     @@@@   @@@@     @@@@@@@@@@
 ;;
-;;        HAL - Camada de Abstração de Hardware do PX-DOS  
+;;        HAL - Camada de Abstraï¿½ï¿½o de Hardware do PX-DOS  
 ;;
-;; Este módulo inclui todos os serviços essenciais e drivers de dispositivos
-;; removiveis em um unico driver carregavel, durante o processo de inicialização.
-;;
-;;
-;;
-;; Este driver ajudará o sistema a se "comportar" e interagir de forma correta nos diversos
-;; dispositivos removíveis e arquiteturas x86 genéricas suportadas.
+;; Este mï¿½dulo inclui todos os serviï¿½os essenciais e drivers de dispositivos
+;; removiveis em um unico driver carregavel, durante o processo de inicializaï¿½ï¿½o.
 ;;
 ;;
 ;;
-;; Copyright © 2013-2016 Felipe Miguel Nery Lunkes
+;; Este driver ajudarï¿½ o sistema a se "comportar" e interagir de forma correta nos diversos
+;; dispositivos removï¿½veis e arquiteturas x86 genï¿½ricas suportadas.
+;;
+;;
+;;
+;; Copyright ï¿½ 2013-2016 Felipe Miguel Nery Lunkes
 ;; Todos os direitos reservados.
 ;;
-;; A distribuição, reprodução total ou parcial de qualquer trecho do código
-;; é proibida e passível de punição legal. O seu uso em formato binário é permitido
-;; apenas se cumpridas todas as obrigações legais e se respeitando os direitos
-;; autorais referentes a seu autor, Felipe Miguel Nery Lunkes.
+;;/*********************************************************************/
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*   #$$%%@!#$%                                                      */
+;;/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
+;;/*   !@@#   #$%                                                      */
+;;/*   #$$%   &*$                                                      */
+;;/*   $#%@   @#&                                                      */
+;;/*   #%$&*(@*@&                                                      */
+;;/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
+;;/*   $%&*                Todos os direitos reservados                */
+;;/*   @#&*                                                            */
+;;/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+;;/*   #&*@                     em domÃ­nio pÃºblico                     */
+;;/*                                                                   */
+;;/*                                                                   */
+;;/*********************************************************************/
+;;/*
+;;
+;; Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice, this
+;;   list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; * Neither the name of the copyright holder nor the names of its
+;;   contributors may be used to endorse or promote products derived from
+;;   this software without specific prior written permission.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;; SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;; CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;; OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;; */
 ;;
 ;;********************************************************************************************
 ;;
 ;;
 ;;                     Arquivo de Controle de Portas Seriais
 ;;
-;;          Este arquivo contém funções importantes de Debug para a HAL
+;;          Este arquivo contï¿½m funï¿½ï¿½es importantes de Debug para a HAL
 ;;                                 
 ;;
 ;;
@@ -46,22 +91,22 @@
 interrupcaoHAL equ 69h ;; Chama a HAL para abertura da Porta Serial
 SEGMENTO equ 32768
 
-HAL_Serial: ;; Função inicio
+HAL_Serial: ;; Funï¿½ï¿½o inicio
 
 
-    ;; call chamar_HAL ;; Chama a camada de Abstração de Hardware do PX-DOS, a solicitando
-	                   ;; a abertura da porta serial. Posso fazer isso aqui, mas já fiz
-					   ;; a HAL, deu trabalho, é mais seguro, mais fácil e a... é isso aí.
+    ;; call chamar_HAL ;; Chama a camada de Abstraï¿½ï¿½o de Hardware do PX-DOS, a solicitando
+	                   ;; a abertura da porta serial. Posso fazer isso aqui, mas jï¿½ fiz
+					   ;; a HAL, deu trabalho, ï¿½ mais seguro, mais fï¿½cil e a... ï¿½ isso aï¿½.
 
 
 					   
     call iniciar_serial ;; Inicia a Porta Serial COM1
    
    
-    mov si, msgInicio ;; Move para si o conteúdo da variável msgInicio, criada lá no final.
+    mov si, msgInicio ;; Move para si o conteï¿½do da variï¿½vel msgInicio, criada lï¿½ no final.
     
 
-    call transferir ;; Chama o método para transferir a mensagem
+    call transferir ;; Chama o mï¿½todo para transferir a mensagem
 	
 	
 	mov si, msgEspaco ;; A mesma coisa..
@@ -119,7 +164,7 @@ HAL_Serial: ;; Função inicio
 ;;****************Separando as mensagens***********
 
 	
-	call obterProcessador ;; Chama um método que identifica o processador
+	call obterProcessador ;; Chama um mï¿½todo que identifica o processador
 
 	
 	mov si, msgEspaco
@@ -130,9 +175,9 @@ HAL_Serial: ;; Função inicio
 
 ;;****************Separando as mensagens***********
 	
-	call memoria ;; Chama um método para identificar quantos kbytes de RAM estão disponíveis
-	             ;; Isso mesmo, Kbytes, visto que é um sistema DOS 16 Bits e só suporta,
-				 ;; no máximo, 1 MB de RAM... É culpa do procesador...
+	call memoria ;; Chama um mï¿½todo para identificar quantos kbytes de RAM estï¿½o disponï¿½veis
+	             ;; Isso mesmo, Kbytes, visto que ï¿½ um sistema DOS 16 Bits e sï¿½ suporta,
+				 ;; no mï¿½ximo, 1 MB de RAM... ï¿½ culpa do procesador...
 	
 	mov si, msgEspaco
 
@@ -145,8 +190,8 @@ ret
 
 obterProcessador:
 
-call BANDEIRA_Serial ;; Realiza a verificação e formatação do resultado 
-                     ;; para o padrão serial
+call BANDEIRA_Serial ;; Realiza a verificaï¿½ï¿½o e formataï¿½ï¿½o do resultado 
+                     ;; para o padrï¿½o serial
 					 
 call iniciar_serial
 
@@ -161,7 +206,7 @@ call iniciar_serial
 call iniciar_serial
 
 	
-	ret ;; Retorna ao método que o chamou
+	ret ;; Retorna ao mï¿½todo que o chamou
 
 .dados
 	
@@ -185,7 +230,7 @@ call transferir
 call iniciar_serial
 
 mov ax, 0
-int 12h  ;; Chama o BIOS para descobrir quanta memória está disponível
+int 12h  ;; Chama o BIOS para descobrir quanta memï¿½ria estï¿½ disponï¿½vel
 
 call paraString
 
@@ -216,10 +261,10 @@ call iniciar_serial
 mov si, msgEspaco
 call transferir
 
-ret ;; Retorna ao método que o chamou
+ret ;; Retorna ao mï¿½todo que o chamou
 
-;; Criando variáveis 
-;; Variáveis com . são variáveis locais, com acesso apenas ao método em que foram
+;; Criando variï¿½veis 
+;; Variï¿½veis com . sï¿½o variï¿½veis locais, com acesso apenas ao mï¿½todo em que foram
 ;; criadas.
 
 .dados
@@ -237,7 +282,7 @@ ret ;; Retorna ao método que o chamou
 
 chamar_HAL:
 
-mov ah, 5h ;; Função de Portas Seriais
+mov ah, 5h ;; Funï¿½ï¿½o de Portas Seriais
 mov bh, 1 ;; COM1
 
 int interrupcaoHAL
@@ -262,13 +307,13 @@ ret
 	msgEspaco db '                                                                                                                                      ',0
 
 
-dispositivo: dw "COM1    ",0 ;; Especifica ao sistema que o driver usará a porta "COM1"
+dispositivo: dw "COM1    ",0 ;; Especifica ao sistema que o driver usarï¿½ a porta "COM1"
 tipo: dw 7h
 
 
-;; Tá meio triste aqui
+;; Tï¿½ meio triste aqui
 
 
 __BSS__
 
-;; Tão vazio aqui...
+;; Tï¿½o vazio aqui...
